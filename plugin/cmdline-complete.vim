@@ -80,8 +80,8 @@ try:
 		return "[" + range_text + "]"
 
 	# simulate vim's \k
-	k = chars2range(map(lambda x: int(x), vim.eval( \
-			"filter(range(256), 'nr2char(v:val) =~ \"\\\\k\"')")))
+	k = chars2range(list(map(lambda x: int(x), vim.eval( \
+			"filter(range(256), 'nr2char(v:val) =~ \"\\\\k\"')"))))
 
 	regexp = re.compile(r'(?<!' + k + r')' + re.escape(seed) + k + r'+')
 	if not seed:
@@ -92,7 +92,7 @@ try:
 
 	buffer = vim.current.buffer
 	completions_set = vim.eval("s:completions_set")
-	search_cursor = map(lambda x: int(x), vim.eval("s:search_cursor"))
+	search_cursor = list(map(lambda x: int(x), vim.eval("s:search_cursor")))
 	sought_bw = int(vim.eval("s:sought_bw"))
 	sought_fw = int(vim.eval("s:sought_fw"))
 
